@@ -1,0 +1,18 @@
+YAML格式的用例编写规则
+1.一级关键字必须包含:api_name,request,assert
+2.在request关键字下必须包含:url.data或params(GET请求如果没有data参数可以不写,POST请求必须编写params关键以及参数）
+3.提取变量使用一级关键字extract。支持JSON提取和正则提取(.+?)和(.*?),取值使用{{}}
+4.可以使用热加载的方式调用yaml_hotloading.py中DebugTalk类里面的方法。通过${}调用方法
+5.支持equals,contains两种断言
+    equals相等断言暂时支持以下方法
+    1.code状态码断言
+    2.time响应时间断言
+
+    contains包含断言有两种固定方法
+    1.text1方法是对返回结果进行单次断言
+    2.text2方法是对返回结果进行多次断言，多个断言在yaml文件中的格式是每个断言为独立的list
+
+6.使用parameters做csv文件的数据驱动，通过$csv{appid}这种格式或者$ddt{}
+parameters:
+       name-appid-secret-grant_type-assert_str: data/get_token_data.csv
+
